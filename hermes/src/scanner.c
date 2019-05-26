@@ -64,7 +64,7 @@ int scan() {
     ba2str(&(ii + i)->bdaddr, addr);
     memset(name, 0, sizeof(name));
 
-    if (hxi_read_remote_name(sock, &(ii + i)->bdaddr, sizeof(name),
+    if (hci_read_remote_name(sock, &(ii + i)->bdaddr, sizeof(name),
           name, 0) < 0) {
       LOG_INFO("Failed to find name");
       strcpy(name, "[unknown]");

@@ -26,9 +26,29 @@
 #define DEBUG_TAG               "[DEBUG]"
 #define NEWLINE                 "\n"
 
+#if LOG_LEVEL >= DEBUG_LEVEL
 #define LOG_DEBUG(message)   PRINTFUNC(LOG_FMT message NEWLINE, LOG_ARGS(DEBUG_TAG))
+#else
+#define LOG_DEBUG(message)
+#endif
+
+#if LOG_LEVEL >= INFO_LEVEL
 #define LOG_INFO(message)    PRINTFUNC(LOG_FMT message NEWLINE, LOG_ARGS(INFO_TAG))
+#else
+#define LOG_INFO(message)
+#endif
+
+#if LOG_LEVEL >= ERROR_LEVEL
 #define LOG_ERROR(message)   PRINTFUNC(LOG_FMT message NEWLINE, LOG_ARGS(ERROR_TAG))
+#else
+#define LOG_ERROR(message)
+#endif
+
+#if LOG_LEVEL >= NO_LOG
+#define LOG_IF_ERROR(condition, message) if (condition) PRINTFUNC(LOG_FMT message NEWLINE, LOG_ARGS(ERROR_TAG))
+#else
+#define LOG_IF_ERROR(condition, message)
+#endif
 
 #define BUFFER_SIZE             64
 
