@@ -1,2 +1,2 @@
-# Trail-Buddy
-Using a robot to help you hike safer
+# Spicy Boi
+Monitor all those server temps with this easy device
