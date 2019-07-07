@@ -25,6 +25,9 @@ class LCD(object):
         self.E_PULSE = 0.00005
         self.E_DELAY = 0.00005
 
+    def lcd_cleanup(self):
+        GPIO.cleanup()
+
     def lcd_init(self):
         GPIO.setmode(GPIO.BCM)  # Use BCM GPIO numbers
         GPIO.setup(self.LCD_E, GPIO.OUT)  # E
