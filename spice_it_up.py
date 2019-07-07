@@ -1,9 +1,10 @@
-import lcd
+from lcd import LCD
 from server import read_weather_data, read_server_temp
 from time import sleep
 
 
 def spice_it_up():
+    lcd = LCD()
     lcd.lcd_init()
     try:
         while True:
