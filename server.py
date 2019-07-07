@@ -21,7 +21,7 @@ def convert_from_kelvin(temp):
 def read_weather_data(city):
     api_key = "2353371c61fb3b07afd93fa3843e9c71"
     url = "https://api.openweathermap.org/data/2.5/weather"
-    r = requests.get("{}?q={city}&APPID={}".format(url, api_key))
+    r = requests.get("{}?q={}&APPID={}".format(url, city, api_key))
     data = r.json()
 
     return Host(data["name"], convert_from_kelvin(data["main"]["temp"]))
