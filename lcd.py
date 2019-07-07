@@ -22,8 +22,8 @@ class LCD(object):
         self.LCD_LINE_2 = 0xC0  # LCD RAM address for the 2nd line
 
         # Timing constants
-        self._PULSE = 0.00005
-        self._DELAY = 0.00005
+        self.E_PULSE = 0.00005
+        self.E_DELAY = 0.00005
 
     def lcd_init(self):
         GPIO.setmode(GPIO.BCM)  # Use BCM GPIO numbers
