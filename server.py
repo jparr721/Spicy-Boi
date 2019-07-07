@@ -21,7 +21,7 @@ def convert_from_kelvin(temp):
 def read_weather_data(city):
     api_key = "2353371c61fb3b07afd93fa3843e9c71"
     url = "https://api.openweathermap.org/data/2.5/weather"
-    r = requests.get(f"{url}?q={city}&APPID={api_key}")
+    r = requests.get("{}?q={city}&APPID={}".format(url, api_key))
     data = r.json()
 
     return Host(data["name"], convert_from_kelvin(data["main"]["temp"]))
@@ -38,16 +38,16 @@ def average_core_temps(c):
 def read_server_temp():
     host_stats = []
     for i in range(1, 10):
-        ip = getenv(f"SERVER_{i}_IP")
-        hostname = getenv(f"SERVER_{i}_HOST")
-        username = getenv(f"SERVER_{i}_USER")
-        password = getenv(f"SERVER_{i}_PW")
+        ip = getenv("SERVER_{}_IP".format(i))
+        hostname = getenv("SERVER_{}_HOST".format(i))
+        username = getenv("SERVER_{}_USER".format(i))
+        password = getenv("SERVER_{}_PW".format(i))
 
         # Dip out if any of these are unset
         if not any([ip, hostname, username, password]):
             break
 
-        host_string = f"{username}@{ip}"
+        host_string = "{}@{}".format(username, ip)
         connect_kwargs = {"password": password}
 
         c = Connection(host=host_string, connect_kwargs=connect_kwargs)
