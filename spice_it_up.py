@@ -32,7 +32,7 @@ def spice_it_up():
         print("^C -- Exiting...")
 
     finally:
-        lcd.cleanup()
+        lcd.lcd_cleanup()
 
 
 if __name__ == "__main__":
