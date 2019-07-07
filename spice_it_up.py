@@ -15,7 +15,7 @@ def spice_it_up():
             lcd.lcd_byte(lcd.LCD_LINE_1, lcd.LCD_CMD)
             lcd.lcd_string(weather_stats.Server, 1)
             lcd.lcd_byte(lcd.LCD_LINE_2, lcd.LCD_CMD)
-            lcd.lcd_string(weather_stats.Temp, 1)
+            lcd.lcd_string(str(weather_stats.Temp), 1)
 
             # Let it hang
             sleep(5)
@@ -25,7 +25,7 @@ def spice_it_up():
                 lcd.lcd_byte(lcd.LCD_LINE_1, lcd.LCD_CMD)
                 lcd.lcd_string(server.Server, 1)
                 lcd.lcd_byte(lcd.LCD_LINE_2, lcd.LCD_CMD)
-                lcd.lcd_String(server.Temp, 1)
+                lcd.lcd_String(str(server.Temp), 1)
                 sleep(5)
 
     except KeyboardInterrupt:
