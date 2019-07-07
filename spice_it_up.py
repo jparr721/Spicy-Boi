@@ -4,7 +4,7 @@ from time import sleep
 
 
 def spice_it_up():
-    lcd.lcv_init()
+    lcd.lcd_init()
     try:
         while True:
             weather_stats = read_weather_data("Denver")
