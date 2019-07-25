@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from fabric import Connection
 from multiprocessing import cpu_count
 from statistics import mean
-from os import getenv
+from os import getenv, popen
 import requests
 
 load_dotenv()
@@ -35,6 +35,12 @@ def average_core_temps(c):
     return sensors
 
 
+def get_local_temps():
+    sensors = popen("sensors").read()
+    sensors = sensors.split("\n")[3:(cpu_count() // 2) + 3]
+    sensors = mean([float(line.split(" ")[9][1:]) for line in sensors])
+
+
 def read_server_temp():
     host_stats = []
     for i in range(1, 10):
@@ -44,14 +50,16 @@ def read_server_temp():
         password = getenv("SERVER_{}_PW".format(i))
 
         # Dip out if any of these are unset
-        if not any([ip, hostname, username, password]):
+        if ip != "127.0.0.1" and not any([ip, hostname, username, password]):
             break
+        elif ip == "127.0.0.1":
+            host_stats.append(Host("Local", get_local_temps()))
+        else:
+            host_string = "{}@{}".format(username, ip)
+            connect_kwargs = {"password": password}
 
-        host_string = "{}@{}".format(username, ip)
-        connect_kwargs = {"password": password}
-
-        c = Connection(host=host_string, connect_kwargs=connect_kwargs)
-        average = average_core_temps(c)
-        host_stats.append(Host(hostname, average))
+            c = Connection(host=host_string, connect_kwargs=connect_kwargs)
+            average = average_core_temps(c)
+            host_stats.append(Host(hostname, average))
 
     return host_stats
