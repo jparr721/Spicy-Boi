@@ -4,6 +4,7 @@ from fabric import Connection
 from multiprocessing import cpu_count
 from statistics import mean
 from os import getenv, popen
+import socket
 import requests
 
 load_dotenv()
@@ -36,9 +37,17 @@ def average_core_temps(c):
 
 
 def get_local_temps():
-    sensors = popen("sensors").read()
-    sensors = sensors.split("\n")[3:(cpu_count() // 2) + 3]
-    sensors = mean([float(line.split(" ")[9][1:]) for line in sensors])
+    hostname = socket.gethostname()
+
+    if hostname != "raspberrypi":
+        sensors = popen("sensors").read()
+        sensors = sensors.split("\n")[3:(cpu_count() // 2) + 3]
+        sensors = mean([float(line.split(" ")[9][1:]) for line in sensors])
+
+        return sensors
+    else:
+        temp = popen("vcgencmd measure_temp").read().rstrip("\n")
+        return temp[5:]
 
 
 def read_server_temp():
