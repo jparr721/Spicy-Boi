@@ -7,7 +7,7 @@ This uses a 4-bit version of a basic LCD screen to display server temperatures. 
 ## API
 The LCD api is very straightforward. Simply read the code and you'll see exactly how it works. It just writes to the screen and chooses the line to access.
 
-For the weather and serveer API, it's also just as easy.
+For the weather and server API, it's also just as easy.
 
 ### Supported Versions
 - This was coded to support python3.5+ becuase raspberry pi's automatically come with Python3.5 installed. As a result, I wanted to decrease friction as much as possible with getting it running.
